@@ -61,8 +61,8 @@ class Module
 				}
 			?>
 		</div>
-		<div class="mfdisgnostic_banner">
-
+		<div class="mfdiagnostic_banner">
+				Debug info flushed...
 		</div>
 		<?php
 		$this->FlushDiagnostics();
