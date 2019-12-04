@@ -1,8 +1,5 @@
 <?php
 
-require(dirname(__DIR__) . "/../Base/Module.class.php");
-require(dirname(__DIR__) . "/database.class.php");
-
 class DatabaseCtrl extends Module
 {
 	private $db;
