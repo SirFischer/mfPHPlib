@@ -4,12 +4,12 @@ class Module
 {
 	protected $messages = array();
 
-	public function AddDiagnostic(bool $success, string $msg)
+	protected function AddDiagnostic(bool $success, string $msg)
 	{
 		array_push($this->messages, array($success, $msg));
 	}
 
-	public function FlushDiagnostics()
+	protected function FlushDiagnostics()
 	{
 		$this->messages = array();
 	}
