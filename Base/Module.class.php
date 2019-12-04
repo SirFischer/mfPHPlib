@@ -21,7 +21,12 @@ class Module
 			.mfdiagnostic_banner {
 				background-color: orangered;
 				width: 100%;
-				height: 200px;
+				height: 80px;
+			}
+
+			.mfdiagnostic_background{
+				background-color: white;
+				width: 100%;
 			}
 
 			.mfdiagnostic_error {
@@ -35,25 +40,28 @@ class Module
 			}
 		</style>
 		<h1 class="mfdiagnostic_banner">MF Module Diagnostics</h1>
-		
-		<?php
-			foreach ($this->messages as $item) {
-				if ($item[0])
-				{
-					?>
-					<p class="mfdiagnostics_success">
-						<?php echo $item[1]; ?>
-					</p>
-					<?php
-				} else
-				{
-					?>
-					<p class="mfdiagnostics_error">
-						<?php echo $item[1]; ?>
-					</p>
-					<?php
+		<div class="mfdiagnostic_background">
+			<?php
+				foreach ($this->messages as $item) {
+					if ($item[0])
+					{
+						?>
+						<p class="mfdiagnostics_success">
+							<?php echo $item[1]; ?>
+						</p>
+						<?php
+					} else
+					{
+						?>
+						<p class="mfdiagnostics_error">
+							<?php echo $item[1]; ?>
+						</p>
+						<?php
+					}
 				}
-			}
+			?>
+		</div>
+		<?php
 		$this->FlushDiagnostics();
 	}
 }
