@@ -21,7 +21,7 @@ class Module
 			.mfdiagnostic_banner {
 				background-color: orangered;
 				width: 100%;
-				height: 80px;
+				height: 50px;
 			}
 
 			.mfdiagnostic_background{
