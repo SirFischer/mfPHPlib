@@ -34,7 +34,7 @@ class Module
 				width: 100%;
 			}
 
-			.mfdiagnostics_success {
+			.mfdiagnostic_success {
 				background-color: green;
 				width: 100%;
 			}
@@ -46,20 +46,23 @@ class Module
 					if ($item[0])
 					{
 						?>
-						<p class="mfdiagnostics_success">
+						<p class="mfdiagnostic_success">
 							<?php echo $item[1]; ?>
 						</p>
 						<?php
 					} else
 					{
 						?>
-						<p class="mfdiagnostics_error">
+						<p class="mfdiagnostic_error">
 							<?php echo $item[1]; ?>
 						</p>
 						<?php
 					}
 				}
 			?>
+		</div>
+		<div class="mfdisgnostic_banner">
+
 		</div>
 		<?php
 		$this->FlushDiagnostics();
