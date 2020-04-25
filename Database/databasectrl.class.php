@@ -46,7 +46,7 @@ class DatabaseCtrl extends Module
 		}
 		else
 			$this->AddDiagnostic(true, "Query prepared!");
-		if (!(mysqli_stmt_bind_param($stmt, $argtype, $args)) && $argtype != "")
+		if (!(mysqli_stmt_bind_param($stmt, $argtype, ...$args)) && $argtype != "")
 		{
 			$this->AddDiagnostic(false, "ERROR: Failed to bind parameters to query...");
 			$this->AddDiagnostic(false, "Errno: " . mysqli_stmt_errno($stmt));
