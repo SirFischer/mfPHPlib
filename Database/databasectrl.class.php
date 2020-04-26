@@ -63,12 +63,7 @@ class DatabaseCtrl extends Module
 		}
 		else
 			$this->AddDiagnostic(true, "Query succesful!");
-		if (!($res = mysqli_stmt_get_result($stmt)))
-		{
-			$this->AddDiagnostic(false, "Error: Failed to retrieve results...");
-			$this->AddDiagnostic(false, "Errno: " . mysqli_stmt_errno($stmt));
-			$this->AddDiagnostic(false, "Error: " . mysqli_stmt_error($stmt));
-		}
+		$res = mysqli_stmt_get_result($stmt);
 		mysqli_stmt_close($stmt);
 		return ($res);
 	}
