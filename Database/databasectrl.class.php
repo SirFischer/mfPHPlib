@@ -35,7 +35,7 @@ class DatabaseCtrl extends Module
 			$this->AddDiagnostic(false, "Warning: Database already running...");
 	}
 
-	public function		query(string $query, string $argtype, ...$args)
+	public function		query(string $query, string $argtype = "", ...$args)
 	{
 		if ($this->link === FALSE)
 			$this->connect();
