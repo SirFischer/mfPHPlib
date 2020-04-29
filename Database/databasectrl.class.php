@@ -4,6 +4,7 @@ class DatabaseCtrl extends Module
 {
 	private $db;
 	private $link = false;
+	private $last_insert = -1;
 
 	function __construct(Database $database)
 	{
@@ -15,6 +16,8 @@ class DatabaseCtrl extends Module
 	{
 		if ('link' === $item)
 			return ($this->link);
+		else if ('last_insert' === $item)
+			return ($this->last_insert);
 		else
 			$this->AddDiagnostic(false, "Error: Bad access to $item...");
 	}
@@ -37,6 +40,7 @@ class DatabaseCtrl extends Module
 
 	public function		query(string $query, string $argtype = "", ...$args)
 	{
+		$this->last_insert = -1;
 		if ($this->link === FALSE)
 			$this->connect();
 		if (!($stmt = mysqli_prepare($this->link, $query)))
@@ -64,6 +68,7 @@ class DatabaseCtrl extends Module
 		else
 			$this->AddDiagnostic(true, "Query succesful!");
 		$res = mysqli_stmt_get_result($stmt);
+		$this->last_insert = $stmt->insert_id;
 		mysqli_stmt_close($stmt);
 		return ($res);
 	}
