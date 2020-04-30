@@ -46,6 +46,8 @@ class DatabaseCtrl extends Module
 		if (!($stmt = mysqli_prepare($this->link, $query)))
 		{
 			$this->AddDiagnostic(false, "ERROR: Failed to prepare query...");
+			$this->AddDiagnostic(false, "Errno: " . mysqli_stmt_errno($stmt));
+			$this->AddDiagnostic(false, "Error: " . mysqli_stmt_error($stmt));
 			return (NULL);
 		}
 		else
