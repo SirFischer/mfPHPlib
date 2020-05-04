@@ -74,6 +74,49 @@ class DatabaseCtrl extends Module
 		mysqli_stmt_close($stmt);
 		return ($res);
 	}
+	public function		longQuery(string $query, string $argtype = "", ...$args)
+	{
+		$this->last_insert = -1;
+		if ($this->link === FALSE)
+			$this->connect();
+		if (!($stmt = mysqli_prepare($this->link, $query)))
+		{
+			$this->AddDiagnostic(false, "ERROR: Failed to prepare query...");
+			$this->AddDiagnostic(false, mysqli_errno($this->link));
+			$this->AddDiagnostic(false, mysqli_error($this->link));
+			return (NULL);
+		}
+		else
+			$this->AddDiagnostic(true, "Query prepared!");
+		$tmpArgs = $args;
+		foreach ($tmpArgs as $key => $value) {
+			$tmpArgs[$key] = NULL;
+		}
+		if (!(mysqli_stmt_bind_param($stmt, $argtype, ...$tmpArgs)) && $argtype != "")
+		{
+			$this->AddDiagnostic(false, "ERROR: Failed to bind parameters to query...");
+			$this->AddDiagnostic(false, "Errno: " . mysqli_stmt_errno($stmt));
+			$this->AddDiagnostic(false, "Error: " . mysqli_stmt_error($stmt));
+			return (NULL);
+		}
+		else
+			$this->AddDiagnostic(true, "Query parameters bound!");
+		foreach ($args as $key => $value) {
+			mysqli_stmt_send_long_data($stmt, $key, $value);
+		}
+		if (!(mysqli_stmt_execute($stmt)))
+		{
+			$this->AddDiagnostic(false, "Error: Failed to execute query...");
+			$this->AddDiagnostic(false, "Errno: " . mysqli_stmt_errno($stmt));
+			$this->AddDiagnostic(false, "Error: " . mysqli_stmt_error($stmt));
+		}
+		else
+			$this->AddDiagnostic(true, "Query succesful!");
+		$res = mysqli_stmt_get_result($stmt);
+		$this->last_insert = $stmt->insert_id;
+		mysqli_stmt_close($stmt);
+		return ($res);
+	}
 }
 
 ?>
