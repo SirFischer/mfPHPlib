@@ -90,7 +90,8 @@ class DatabaseCtrl extends Module
 			$this->AddDiagnostic(true, "Query prepared!");
 		$tmpArgs = $args;
 		foreach ($tmpArgs as $key => $value) {
-			$tmpArgs[$key] = NULL;
+			if ($argtype[$key] == "b")
+				$tmpArgs[$key] = NULL;
 		}
 		if (!(mysqli_stmt_bind_param($stmt, $argtype, ...$tmpArgs)) && $argtype != "")
 		{
@@ -102,7 +103,8 @@ class DatabaseCtrl extends Module
 		else
 			$this->AddDiagnostic(true, "Query parameters bound!");
 		foreach ($args as $key => $value) {
-			mysqli_stmt_send_long_data($stmt, $key, $value);
+			if ($argtype[$key] == "b")
+				mysqli_stmt_send_long_data($stmt, $key, $value);
 		}
 		if (!(mysqli_stmt_execute($stmt)))
 		{
